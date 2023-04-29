@@ -1,0 +1,6 @@
+12 horizontal bas du pit
+7 vertical haut du pit
+
+4 horizontal tube de descente
+4 vertical tube de descente écran du bas
+4 vertical tube de descente écran du haut
