@@ -173,10 +173,10 @@ pieceData = [
  ]
 
 cst_gamezone = [
-    2,2,2,2,0,0,0,0,2,2,2,2,
-    2,2,2,2,0,0,0,0,2,2,2,2,
-    2,2,2,2,0,0,0,0,2,2,2,2,
-    2,2,2,2,0,0,0,0,2,2,2,2,
+    0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,
     2,2,2,2,0,0,0,0,2,2,2,2,
     2,2,2,2,0,0,0,0,2,2,2,2,
     2,2,2,2,0,0,0,0,2,2,2,2,
@@ -224,15 +224,25 @@ def print_gamezone():
             print(gamezone[y*12+x],end='')
 
 
-def render(decalx,decly):
+def render(decalx,decaly):
     global images
     global screen
-    for y in range(16):
+    global fond
+    
+    screen.blit(fond,(decalx,decaly))
+
+    for y in range(8):
         for x in range(12):
             i_index = gamezone[y*12+x]
             i = images[i_index]
-            screen.blit(i, (x*16, y*16))
+            screen.blit(i, ((decalx+(x*16))+140, (decaly+(y*16))+50))
 
+    for y in range(8):
+        for x in range(12):
+            i_index = gamezone[(y+7)*12+x]
+            i = images[i_index]
+            screen.blit(i, ((decalx+(x*16)+145), decaly+((y+7)*16)+140))
+            
 init_gamezone()
 print_gamezone()
 
@@ -246,6 +256,8 @@ images = [
     pygame.image.load("images/mur.png").convert(),
 ]	
 
+fond = pygame.image.load("images/gw.jpg").convert()
+
 running = True
 
 clock = pygame.time.Clock()
@@ -256,7 +268,7 @@ while running:
             running = False
             
 	# Effacer l'écran
-    screen.fill((255, 255, 255))  # Blanc		
+    #screen.fill((255, 255, 255))  # Blanc		
     render (0,0)
     
     pygame.display.flip()
