@@ -1,4 +1,5 @@
 #Programme principal
+import pygame
 
 #Definition des pièces de Tetris et de leur rotation
 pieceData = [
@@ -222,5 +223,44 @@ def print_gamezone():
         for x in range(12):
             print(gamezone[y*12+x],end='')
 
+
+def render(decalx,decly):
+    global images
+    global screen
+    for y in range(16):
+        for x in range(12):
+            i_index = gamezone[y*12+x]
+            i = images[i_index]
+            screen.blit(i, (x*16, y*16))
+
 init_gamezone()
 print_gamezone()
+
+# Créer la fenêtre d'affichage
+screen = pygame.display.set_mode((640, 480))
+
+# Charger les images
+images = [
+	pygame.image.load("images/blank.png").convert(),
+    pygame.image.load("images/brique.png").convert(),
+    pygame.image.load("images/mur.png").convert(),
+]	
+
+running = True
+
+clock = pygame.time.Clock()
+while running:
+    # Gestion des événements
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            
+	# Effacer l'écran
+    screen.fill((255, 255, 255))  # Blanc		
+    render (0,0)
+    
+    pygame.display.flip()
+
+    clock.tick(60)
+    
+pygame.quit()
